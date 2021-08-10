@@ -26,53 +26,21 @@ public class TagMergePush {
         if (repoPath == null || repoPath.trim().length()<=0){
             repoPath = "D:\\work\\workspace\\projects\\zhgd-person-data-report\\.git";
         }
-        // Open an existing repository
         Repository repo = new FileRepositoryBuilder().setGitDir(new File(repoPath)).build();
-
-        //// Get a reference
-        //Ref master = repo.getRef("master");
-        //// Get the object the reference points to
-        //ObjectId masterTip = master.getObjectId();
-        //System.out.println(masterTip);
-        //
-        //// Rev-parse
-        //ObjectId obj = repo.resolve("HEAD^{tree}");
-        //System.out.println(obj);
-        //
-        //// Load raw object contents
-        //ObjectLoader loader = repo.open(masterTip);
-        //loader.copyTo(System.out);
-
-        //String username = System.getenv("GIT_USERNAME");
-        //String password = System.getenv("GIT_PASSWORD");
-        //
         Git git = new Git(repo);
-        //CredentialsProvider cp = new UsernamePasswordCredentialsProvider(username, password);
-        //Collection<Ref> remoteRefs = git.lsRemote()
-        //        .setCredentialsProvider(cp)
-        //        .setRemote("origin")
-        //        .setTags(true)
-        //        .setHeads(true)
-        //        .call();
-        //for (Ref ref : remoteRefs) {
-        //    System.out.println(ref.getName() + " -> " + ref.getObjectId().name());
-        //}
 
-        Ref main = git.checkout().setName("main").call();
+        //Ref ref = repo.getRef("refs/heads/main");
+        String branch = repo.getBranch();
+        System.out.println("current branch: " + branch);
 
-        //List<Ref> testbranch1 = git.branchList().setContains("testbranch1").call();
+        System.out.println("start to checkout testbranch1");
+        Ref checkoutRef = git.checkout().setName("testbranch1").call();
+        System.out.println("checkout ref : " + checkoutRef);
+        String testbranch1 = repo.getBranch();
+        System.out.println("current branch: " + testbranch1);
 
-        Repository repository = git.getRepository();
-        Map<String, Ref> allRefs = repository.getAllRefs();
-        allRefs.forEach((s,r)->{
-            System.out.println(s + " -> " + r);
-        });
-
-        Ref ref = repository.getRef("refs/heads/main");
-
-        MergeResult call = git.merge().include(ref).call();
-        System.out.println(call);
-
+        //MergeResult call = git.merge().include(ref).call();
+        //System.out.println(call);
 
 
     }
