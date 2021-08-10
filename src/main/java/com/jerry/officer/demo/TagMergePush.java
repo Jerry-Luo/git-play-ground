@@ -63,12 +63,12 @@ public class TagMergePush {
         //List<Ref> testbranch1 = git.branchList().setContains("testbranch1").call();
 
         Repository repository = git.getRepository();
-        Map<String, Ref> allRefs = repository.getAllRefs();
-        allRefs.forEach((s,r)->{
-            System.out.println(s + " -> " + r);
-        });
+        //Map<String, Ref> allRefs = repository.getAllRefs();
+        //allRefs.forEach((s,r)->{
+        //    System.out.println(s + " -> " + r);
+        //});
 
-        Ref ref = repository.getRef("refs/heads/testbranch1");
+        Ref ref = repository.getRef("refs/heads/main");
 
         MergeResult call = git.merge().include(ref).call();
         System.out.println(call);
