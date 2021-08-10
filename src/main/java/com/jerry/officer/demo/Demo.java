@@ -1,9 +1,12 @@
 package com.jerry.officer.demo;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PushCommand;
+import org.eclipse.jgit.api.TagCommand;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
@@ -59,5 +62,16 @@ public class Demo {
         for (Ref ref : remoteRefs) {
             System.out.println(ref.getName() + " -> " + ref.getObjectId().name());
         }
+
+        TagCommand tst = git.tag().setMessage("tst");
+        Ref call = tst.call();
+
+        PushCommand push = git.push();
+        push.setRemote("origin");
+        push.setPushTags();
+        Iterable<PushResult> pushResult = push.call();
+
+
+
     }
 }
