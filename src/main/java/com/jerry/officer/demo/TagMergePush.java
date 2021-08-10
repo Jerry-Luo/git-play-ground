@@ -68,7 +68,7 @@ public class TagMergePush {
             System.out.println(s + " -> " + r);
         });
 
-        Ref ref = repository.getRef("refs/heads/testbranch1");
+        Ref ref = repository.getRef("refs/heads/main");
 
         MergeResult call = git.merge().include(ref).call();
         System.out.println(call);
