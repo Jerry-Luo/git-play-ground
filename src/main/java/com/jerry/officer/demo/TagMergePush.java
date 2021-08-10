@@ -1,10 +1,8 @@
 package com.jerry.officer.demo;
 
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.api.MergeResult;
+import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -12,6 +10,8 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:luojianwei@pinming.cn">LuoJianwei</a>
@@ -58,6 +58,22 @@ public class TagMergePush {
         //    System.out.println(ref.getName() + " -> " + ref.getObjectId().name());
         //}
 
-        git.checkout().setName("main").call();
+        Ref main = git.checkout().setName("main").call();
+
+        //List<Ref> testbranch1 = git.branchList().setContains("testbranch1").call();
+
+        Repository repository = git.getRepository();
+        Map<String, Ref> allRefs = repository.getAllRefs();
+        allRefs.forEach((s,r)->{
+            System.out.println(s + " -> " + r);
+        });
+
+        Ref ref = repository.getRef("refs/heads/testbranch1");
+
+        MergeResult call = git.merge().include(ref).call();
+        System.out.println(call);
+
+
+
     }
 }
