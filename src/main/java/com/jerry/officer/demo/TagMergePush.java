@@ -33,6 +33,8 @@ public class TagMergePush {
         if (repoPath == null || repoPath.trim().length()<=0){
             repoPath = "D:\\work\\workspace\\projects\\zhgd-person-data-report\\.git";
         }
+
+        System.out.println("rep path : " + repoPath);
         Repository repo = new FileRepositoryBuilder().setGitDir(new File(repoPath)).build();
         Git git = new Git(repo);
 
